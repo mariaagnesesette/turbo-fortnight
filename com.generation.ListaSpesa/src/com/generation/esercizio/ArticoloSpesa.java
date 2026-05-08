@@ -1,4 +1,4 @@
-package com.generation.ListaSpesa.Modello;
+package com.generation.esercizio;
 
 public class ArticoloSpesa {
 	
@@ -52,7 +52,7 @@ public class ArticoloSpesa {
 	}
 	
 	
-	public void aumentaQuantità(int quantitaDaAggiungere) {
+	public void aumentaQuantita(int quantitaDaAggiungere) {
 		
 		if (quantitaDaAggiungere > 0 ) {
 			

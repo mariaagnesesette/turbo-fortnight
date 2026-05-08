@@ -1,7 +1,7 @@
-package com.generation.ListaSpesa.Modello;
+package com.generation.esercizio;
 
 import java.util.Scanner;
-import com.generation.ListaSpesa.Modello.ArticoloSpesa;
+	
 
 public class GestioneSpesa {
 
@@ -81,11 +81,12 @@ public class GestioneSpesa {
 				case 3:
 					
 					System.out.println("Quale Articolo vuoi controllare?");
+					
 					String rispostaUt = scanner.nextLine();
 					
 					for (int t = 0; t < contatoreArticoli; t++) {
 						
-						if (lista[t].nome == rispostaUt); {
+						if (lista[t].nome.equalsIgnoreCase(rispostaUt)) {
 							System.out.println("\n===ARTICOLO N° "+(t+1)+"===\n");
 							System.out.println(lista[t].toString());
 						}
@@ -95,6 +96,19 @@ public class GestioneSpesa {
 					break;
 				
 				case 4:
+					
+					System.out.println("di quale articolo vuoi modificare la quantità?");
+					String cambio = scanner.nextLine();
+					System.out.println("quanto vuoi aggiungere?");
+					int nuovaQuantita = Integer.parseInt(scanner.nextLine());
+					
+					for (int t = 0; t < contatoreArticoli; t++) {
+						
+						if (lista[t].nome.equalsIgnoreCase(cambio)) {
+							lista[t].aumentaQuantita(nuovaQuantita);
+						}
+					}
+						
 					
 					break;
 					
