@@ -6,7 +6,7 @@ public class ArticoloSpesa {
 	String categoria;
 	double prezzoUnitario;
 	int quantita;
-	boolean acquistato = false;
+	boolean acquistato;
 	
 	public ArticoloSpesa() {
 		
@@ -42,13 +42,12 @@ public class ArticoloSpesa {
 	}
 	
 	public String toString() {
-		
-		 if (!acquistato) {
+		if (acquistato) {
 			return "Nome: " +nome+ "\nCategoria: " +categoria+ "\nPrezzo Unitario: " +prezzoUnitario+
 					"\nQuantità: " +quantita+ "\nTotale articolo: "+calcolaTotaleArticolo()+ "\nStato: acquistato";
-		}else {
+		} else {
 			return "Nome: " +nome+ "\nCategoria: " +categoria+ "\nPrezzo Unitario: " +prezzoUnitario+
-					"\nQuantità: " +quantita+ "\nTotale articolo: "+calcolaTotaleArticolo()+ "\nStato: non cquistato";
+					"\nQuantità: " +quantita+ "\nTotale articolo: "+calcolaTotaleArticolo()+ "\nStato: non acquistato";
 		}
 	}
 	
