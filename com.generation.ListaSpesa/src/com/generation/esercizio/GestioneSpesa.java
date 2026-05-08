@@ -102,15 +102,20 @@ public class GestioneSpesa {
 					System.out.println("quanto vuoi aggiungere?");
 					int nuovaQuantita = Integer.parseInt(scanner.nextLine());
 					
-					for (int t = 0; t < contatoreArticoli; t++) {
+					if (nuovaQuantita > 0) {
+					
+						for (int t = 0; t < contatoreArticoli; t++) {
 						
-						if (lista[t].nome.equalsIgnoreCase(cambio)) {
-							System.out.println("\n===ARTICOLO N° "+(t+1)+"===\n");
-							lista[t].aumentaQuantita(nuovaQuantita);
-							lista[t].quantita += nuovaQuantita;
+							if (lista[t].nome.equalsIgnoreCase(cambio)) {
+								System.out.println("\n===ARTICOLO N° "+(t+1)+"===\n");
+								lista[t].aumentaQuantita(nuovaQuantita);
+								lista[t].quantita += nuovaQuantita;
+							}
 						}
+					} else {
+						System.out.println("-----------------------------------------------------\nErrore: ritenta sarai più fortunato");
 					}
-						
+					
 					
 					break;
 					
