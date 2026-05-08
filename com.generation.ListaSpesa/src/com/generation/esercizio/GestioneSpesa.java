@@ -105,7 +105,9 @@ public class GestioneSpesa {
 					for (int t = 0; t < contatoreArticoli; t++) {
 						
 						if (lista[t].nome.equalsIgnoreCase(cambio)) {
+							System.out.println("\n===ARTICOLO N° "+(t+1)+"===\n");
 							lista[t].aumentaQuantita(nuovaQuantita);
+							lista[t].quantita += nuovaQuantita;
 						}
 					}
 						

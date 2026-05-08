@@ -59,7 +59,7 @@ public class ArticoloSpesa {
 			System.out.println(nome+ ", quantità iniziale: " +this.quantita+
 					           "\naggiungo: " +quantitaDaAggiungere+
 					           "\n Nuova quantità: "+(quantitaDaAggiungere+this.quantita));
-		}else {
+		} else {
 			
 			System.out.println("!!ERRORE!!");
 			
