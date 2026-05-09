@@ -8,6 +8,7 @@ public class GestioneListaSpesa {
 		
 		int azione;
 		boolean continua = true;
+		boolean check = false;
 		Scanner scanner = new Scanner(System.in);
 		ArticoloSpesa[] lista = new ArticoloSpesa[20];
 		int contatoreArticoli = 0;
@@ -73,7 +74,7 @@ public class GestioneListaSpesa {
 							System.out.println("\n===ARTICOLO N° "+(i+1)+"===\n"+lista[i].toString());
 						}
 					} else {
-						System.out.println("-----------------------------------------------------\nErrore: lista vuota");
+						System.out.println("-----------------------------------------------------\n\nErrore: lista vuota");
 					}
 					break;
 				
@@ -84,14 +85,18 @@ public class GestioneListaSpesa {
 					if (contatoreArticoli > 0) {
 						System.out.println("Quale Articolo vuoi controllare?");
 						String rispostaUt = scanner.nextLine();
-					
+						check = false;
+						
 						for (int t = 0; t < contatoreArticoli; t++) {
 							if (lista[t].nome.equalsIgnoreCase(rispostaUt)) {	
 								System.out.println("\n===ARTICOLO N° "+(t+1)+"===\n"+lista[t].toString());
 							}
 						}
+						if (!check) {
+							System.out.println("-----------------------------------------------------\n\nErrore: articolo non trovato");
+						}
 					} else {
-						System.out.println("-----------------------------------------------------\nErrore: lista vuota");
+						System.out.println("-----------------------------------------------------\n\nErrore: lista vuota");
 					}
 					break;
 				
@@ -102,16 +107,20 @@ public class GestioneListaSpesa {
 					if (contatoreArticoli > 0) {
 						int nuovaQuantita = 0;
 						int moreOrLess = 0;
+						int indiceTrovato = -1;
 						System.out.println("Di quale articolo vuoi modificare la quantità?");
 						cambio = scanner.nextLine();
-						for (int i = 0; i < contatoreArticoli; i++) { //non funziona
+						for (int i = 0; i < contatoreArticoli; i++) {
 							if (lista[i].nome.equalsIgnoreCase(cambio)) {
+								indiceTrovato = i;
 								break;
-							} else if (!lista[i].nome.equalsIgnoreCase(cambio)){
-								continue;
 							} else {
-								System.out.println("-----------------------------------------------------\nErrore: articolo non trovato");
+								continue;
 							}
+						}
+						if (!(indiceTrovato == -1)) {
+							System.out.println("-----------------------------------------------------\n\nErrore: articolo non trovato");
+							break;
 						}
 						System.out.println("Digitare il numero dell'azione che vorresti eseguire:"
 												+"\n 1. Aggiungere"
@@ -120,26 +129,18 @@ public class GestioneListaSpesa {
 							if (moreOrLess == 1) {
 								System.out.println("Quanto vuoi aggiungere a "+cambio+"?");
 								nuovaQuantita = Integer.parseInt(scanner.nextLine());
-								for (int t = 0; t < contatoreArticoli; t++) {
-									if (lista[t].nome.equalsIgnoreCase(cambio)) {
-										System.out.println("\n===ARTICOLO N° "+(t+1)+"===\n");
-										lista[t].aumentaQuantita(nuovaQuantita);
-									}
-								}
+								System.out.println("\n===ARTICOLO N° "+(indiceTrovato+1)+"===\n");
+								lista[indiceTrovato].aumentaQuantita(nuovaQuantita);
 							} else if (moreOrLess == 2) {
 								System.out.println("Quanto vuoi diminuire di "+cambio+"?");
 								nuovaQuantita = Integer.parseInt(scanner.nextLine());
-								for (int t = 0; t < contatoreArticoli; t++) {
-									if (lista[t].nome.equalsIgnoreCase(cambio)) {
-										System.out.println("\n===ARTICOLO N° "+(t+1)+"===\n");
-										lista[t].riduciQuantita(nuovaQuantita);
-									}
-								}
+								System.out.println("\n===ARTICOLO N° "+(indiceTrovato+1)+"===\n");
+								lista[indiceTrovato].riduciQuantita(nuovaQuantita);
 							} else {
-								System.out.println("-----------------------------------------------------\nErrore: azione non trovata");
+								System.out.println("-----------------------------------------------------\n\nErrore: azione non trovata");
 							}
 					} else {
-							System.out.println("-----------------------------------------------------\nErrore: lista vuota");
+							System.out.println("-----------------------------------------------------\n\nErrore: lista vuota");
 					}
 					break;
 					
@@ -149,8 +150,8 @@ public class GestioneListaSpesa {
 					if (contatoreArticoli > 0) {
 						System.out.println("Di quale articolo vorresti aggiornare il prezzo?");
 						String risposta = scanner.nextLine();
-						boolean check = false;
-					
+						check = false;
+						
 						for (int i =0; i < contatoreArticoli; i++) {
 							if (lista[i].nome.equalsIgnoreCase(risposta)) {
 								System.out.println("Inserire il nuovo prezzo per l'articolo indicato: ");
@@ -162,10 +163,10 @@ public class GestioneListaSpesa {
 							}
 						}
 						if (!check) {
-							System.out.println("-----------------------------------------------------\nErrore: articolo non trovato");
+							System.out.println("-----------------------------------------------------\n\nErrore: articolo non trovato");
 						}
 					} else {
-						System.out.println("-----------------------------------------------------\nErrore: lista vuota");
+						System.out.println("-----------------------------------------------------\n\nErrore: lista vuota");
 					}
 					break;
 				
@@ -175,23 +176,23 @@ public class GestioneListaSpesa {
 					if (contatoreArticoli > 0) {
 						System.out.println("Di quale articolo vorresti scontare il prezzo?");
 						String input = scanner.nextLine();
-						boolean corrispondenza = false;
-					
+						check = false;
+						
 						for (int i= 0; i < contatoreArticoli; i++) {
 							if (lista[i].nome.equalsIgnoreCase(input)) {
 								System.out.println("Qual è la percentuale di sconto da applicare?");
 								double sconto = Double.parseDouble(scanner.nextLine());
 								System.out.println("\n===ARTICOLO N° "+(i+1)+"===\n");
 								lista[i].applicaSconto(sconto);
-								corrispondenza = true;
+								check = true;
 								break;
 							} 
 						}
-						if (!corrispondenza) {
-							System.out.println("-----------------------------------------------------\nErrore : articolo non trovato");	
+						if (!check) {
+							System.out.println("-----------------------------------------------------\n\nErrore : articolo non trovato");	
 						}
 					} else {
-						System.out.println("-----------------------------------------------------\nErrore: lista vuota");
+						System.out.println("-----------------------------------------------------\n\nErrore: lista vuota");
 					}
 					break;
 					
@@ -203,15 +204,15 @@ public class GestioneListaSpesa {
 						String articoloAcquistato = scanner.nextLine();
 					
 						for (int i = 0; i < contatoreArticoli; i++) {
-							if(lista[i].nome.equalsIgnoreCase(articoloAcquistato)) {
+							if (lista[i].nome.equalsIgnoreCase(articoloAcquistato)) {
 								lista[i].segnaComeAcquistato();
 								System.out.println("L'articolo è stato segnato correttamente");
 							} else {
-								System.out.println("-----------------------------------------------------\nErrore : articolo non trovato");
+								System.out.println("-----------------------------------------------------\n\nErrore : articolo non trovato");
 							}
 						}
 					} else {
-						System.out.println("-----------------------------------------------------\nErrore: lista vuota");
+						System.out.println("-----------------------------------------------------\n\nErrore: lista vuota");
 					}
 					break;
 					
@@ -231,10 +232,10 @@ public class GestioneListaSpesa {
 							}
 						}
 						if (presenzaArt) {
-							System.out.println("-----------------------------------------------------\nErrore : articolo non trovato");	
+							System.out.println("-----------------------------------------------------\n\nErrore : articolo non trovato");	
 						}
 					} else {
-						System.out.println("-----------------------------------------------------\nErrore: lista vuota");
+						System.out.println("-----------------------------------------------------\n\nErrore: lista vuota");
 					}
 					break;
 					
@@ -248,11 +249,11 @@ public class GestioneListaSpesa {
 							if (!lista[i].acquistato) {
 								System.out.println("\n===ARTICOLO N° "+(i+1)+"===\n"+lista[i].toString());
 							} else {
-								System.out.println("-----------------------------------------------------\\nNessun articolo da acquistato");
+								System.out.println("-----------------------------------------------------\n\nNessun articolo da acquistato");
 							}
 						}
 					} else {
-						System.out.println("-----------------------------------------------------\nErrore: lista vuota");
+						System.out.println("-----------------------------------------------------\n\nErrore: lista vuota");
 					}
 					break;
 					
@@ -266,11 +267,11 @@ public class GestioneListaSpesa {
 							if (lista[i].acquistato) {
 								System.out.println("\n===ARTICOLO N° "+(i+1)+"===\n"+lista[i].toString());
 							} else {
-								System.out.println("-----------------------------------------------------\nNessun articolo acquistato");
+								System.out.println("-----------------------------------------------------\n\nNessun articolo acquistato");
 							}
 						}
 					} else {
-						System.out.println("-----------------------------------------------------\nErrore: lista vuota");
+						System.out.println("-----------------------------------------------------\n\nErrore: lista vuota");
 					}	
 					break;
 				
@@ -280,7 +281,7 @@ public class GestioneListaSpesa {
 					if (contatoreArticoli > 0) {
 					System.out.println("Il totale provvisorio degli acquisti è: "+Utility.calcolaTotaleLista(lista, contatoreArticoli)); 
 					} else {
-						System.out.println("-----------------------------------------------------\nErrore: nessun articolo presente");
+						System.out.println("-----------------------------------------------------\n\nErrore: nessun articolo presente");
 					}
 					break;
 					
@@ -290,7 +291,7 @@ public class GestioneListaSpesa {
 					if (contatoreArticoli > 0) {
 						System.out.println("il totale dei prodotti acquistati è: "+Utility.calcolaTotaleAcquistati(lista, contatoreArticoli));
 					} else {
-						System.out.println("-----------------------------------------------------\nErrore: nessun articolo presente");
+						System.out.println("-----------------------------------------------------\n\nErrore: nessun articolo presente");
 					}
 					break;
 				
@@ -300,7 +301,7 @@ public class GestioneListaSpesa {
 					if (contatoreArticoli > 0) {
 						System.out.println("L'articolo più costoso della lista è: \n"+Utility.trovaArticoloPiuCostoso(lista, contatoreArticoli));
 					} else {
-						System.out.println("-----------------------------------------------------\nErrore: nessun articolo presente");
+						System.out.println("-----------------------------------------------------\n\nErrore: nessun articolo presente");
 					}
 					break;
 					
@@ -311,7 +312,7 @@ public class GestioneListaSpesa {
 						System.out.println("Quale articolo vuoi eliminare?");
 						contatoreArticoli = Utility.eliminaArticolo(lista, contatoreArticoli, scanner.nextLine());
 						} else {
-							System.out.println("-----------------------------------------------------\nErrore: nessun articolo presente");
+							System.out.println("-----------------------------------------------------\n\nErrore: nessun articolo presente");
 						}
 					break;
 					
@@ -325,7 +326,7 @@ public class GestioneListaSpesa {
 					
 				// Opzione del menù non valida
 				default:
-					System.out.println("-----------------------------------------------------\nErrore: azione non riconosciuta, ritenta");
+					System.out.println("-----------------------------------------------------\n\nErrore: azione non riconosciuta, ritenta");
 					break;
 			}
 			
@@ -334,6 +335,6 @@ public class GestioneListaSpesa {
 		
 		scanner.close();
 	}
-	}
+}
 	
 
